@@ -2,7 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+@font-face {
+  font-family: "NanumBold";
+  src: url("../../public/fonsts/NanumSquareB.otf");
+}
+
+@font-face {
+  font-family: "NanumRegular";
+  src: url("../../public/fonsts/NanumSquareR.otf");
+}
+
+.flexRowCenter {
+  @apply flex items-center justify-center;
+}
+.flexColumn {
+  @apply flex flex-col items-center justify-center;
+}
+
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -30,4 +47,4 @@ body {
   .text-balance {
     text-wrap: balance;
   }
-}
+} */
