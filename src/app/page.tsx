@@ -1,13 +1,10 @@
+import Header from "@/components/header";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="min-h-screen font-nanumR text-[18px]">
-      <header className="flexRowCenter w-full h-[60px] border-b-[1px] border-slate/200">
-        <div className="flex justify-start items-center w-full max-w-[1200px] h-full px-[24px]">
-          <Image src="/assets/logo.png" alt="로고" width={151} height={40} />
-        </div>
-      </header>
+    <div className="min-h-screen font-nanumR text-[16px]">
+      <Header />
 
       <main className="flexRowCenter pt-[24px]  px-[24px]">
         <div className=" w-full max-w-[1200px]">
@@ -26,7 +23,9 @@ export default function Home() {
                 height={16}
                 alt="더하기"
               />
-              <span className="ml-[4px] max-sm:hidden">추가하기</span>
+              <span className="ml-[4px] max-sm:hidden text-[18px]">
+                추가하기
+              </span>
             </button>
           </div>
 
@@ -40,7 +39,15 @@ export default function Home() {
                   alt="TODO"
                 />
               </div>
-              <div className="h-[50px] rounded-[27px] border-[2px] border-slate/900 mt-[16px]"></div>
+              <div className="flex items-center h-[50px] rounded-[27px] border-[2px] border-slate/900 mt-[16px] px-[10px] ">
+                <Image
+                  src="/assets/emptybox.png"
+                  width={32}
+                  height={32}
+                  alt="check"
+                />
+                <span className="ml-[16px]">비타민 챙겨 안먹기</span>
+              </div>
             </section>
 
             <section className="w-full md:ml-[12px]">
@@ -52,7 +59,17 @@ export default function Home() {
                   alt="Done"
                 />
               </div>
-              <div className="h-[50px] rounded-[27px] border-[2px] bg-violet/100 border-slate/900 mt-[16px]"></div>
+              <div className="flex items-center h-[50px] rounded-[27px] border-[2px] bg-violet/100 border-slate/900 mt-[16px] px-[10px] ">
+                <Image
+                  src="/assets/checkbox.png"
+                  width={32}
+                  height={32}
+                  alt="check"
+                />
+                <span className="ml-[16px] line-through">
+                  비타민 챙겨 안먹기
+                </span>
+              </div>
             </section>
           </div>
         </div>
