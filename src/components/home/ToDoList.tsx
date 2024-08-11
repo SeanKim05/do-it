@@ -11,7 +11,7 @@ export default function ToDoList() {
   }
 
   const { data: todoList } = useGetToDoList();
-
+  console.log("a");
   const completed =
     todoList?.filter((item: ITodoItem) => item.isCompleted) || [];
   const notCompleted =
