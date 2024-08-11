@@ -1,7 +1,12 @@
-import Header from "@/components/header";
+"use client";
+
+import { useGetToDoList } from "@/api/query";
+import Header from "../components/Header";
 import Image from "next/image";
 
 export default function Home() {
+  const { data: todoList } = useGetToDoList();
+  console.log(todoList);
   return (
     <div className="min-h-screen font-nanumR text-[16px]">
       <Header />
