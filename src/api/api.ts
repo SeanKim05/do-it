@@ -16,11 +16,13 @@ export const postToDoItem = async (req: { name: string }) => {
 export const getToDoList = async () => {
   const res = await api.get("/items?page=1&pageSize=10");
 
-  return res;
+  return res?.data;
 };
 
 export const getToDoItem = async (itemId: number) => {
-  const res = api.get(`/items/${itemId}`);
+  const res = await api.get(`/items/${itemId}`);
+
+  return res;
 };
 
 export const updateToDoItem = async (itemId: number, req: IupdateToDo) => {
