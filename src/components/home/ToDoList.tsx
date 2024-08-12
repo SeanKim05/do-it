@@ -41,7 +41,7 @@ export default function ToDoList() {
 
       <section className="w-full md:mr-[12px] mb-[24px] md:mb-0">
         <div className="w-[97px] h-[36px]">
-          <Image src="/assets/todo.svg" width={97} height={36} alt="TODO" />
+          <Image src="/assets/done.svg" width={97} height={36} alt="TODO" />
         </div>
         {completed.map((item: ITodoItem) => (
           <Link key={item.id} href={`/detail/${item.id}`}>

@@ -26,7 +26,13 @@ export default function SearchBar() {
         style={{ boxShadow: "0 6px 4px rgba(15, 23, 42, 1)" }}
         onClick={() => toDoClickHandler()}
       >
-        <Image src="/assets/plus.png" width={16} height={16} alt="더하기" />
+        <Image
+          src="/assets/plus.png"
+          style={{ width: "auto" }}
+          width={16}
+          height={16}
+          alt="더하기"
+        />
         <span className="ml-[4px] max-sm:hidden text-[18px]">추가하기</span>
       </button>
     </div>

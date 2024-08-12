@@ -9,7 +9,13 @@ export default function Header() {
         href={"/"}
         className="flex justify-start items-center w-full max-w-[1200px] h-full px-[24px]"
       >
-        <Image src="/assets/logo.png" alt="로고" width={151} height={40} />
+        <Image
+          src="/assets/logo.png"
+          alt="로고"
+          width={151}
+          height={40}
+          priority
+        />
       </Link>
     </div>
   );
