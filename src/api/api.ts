@@ -22,10 +22,16 @@ export const getToDoList = async () => {
 export const getToDoItem = async (itemId: number) => {
   const res = await api.get(`/items/${itemId}`);
 
-  return res;
+  return res?.data;
 };
 
-export const updateToDoItem = async (itemId: number, req: IupdateToDo) => {
+export const updateToDoItem = async ({
+  itemId,
+  req,
+}: {
+  itemId: number;
+  req: IupdateToDo;
+}) => {
   const res = await api.patch(`/items/${itemId}`, req);
 
   return res;
