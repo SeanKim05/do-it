@@ -62,7 +62,7 @@ export default function Detail() {
   const onClickDelete = () => {
     deleteItem.mutate(+itemIdParam, {
       onSuccess: () => {
-        router.push("/");
+        router.push("/"); // Navigate after successful deletion
       },
     });
   };
@@ -70,9 +70,9 @@ export default function Detail() {
   return (
     <div className="min-h-screen font-nanumR text-[16px] flex flex-col">
       <Header />
-      <div className="flex-grow flex justify-center items-center bg-slate/200">
+      <div className="flex-grow flexRowCenter min-w-[344px] bg-slate/200">
         {!isFetching && (
-          <div className="w-full h-[calc(100vh-60px)] max-w-[1200px] py-[24px] px-[102px] bg-white">
+          <div className="w-full h-[calc(100vh-60px)] max-w-[1200px] py-[24px] px-[16px] sm:px-[24px] md:px-[102px] bg-white">
             <section>
               <div
                 onClick={() => setIsCompletedVal(!isCompletedVal)}
@@ -94,9 +94,8 @@ export default function Detail() {
                   {toDoItem?.name}
                 </span>
               </div>
-
-              <div className="flex justify-between my-[24px] h-[311px]">
-                <div className="relative flexRowCenter min-w-[384px] rounded-[24px] bg-slate/300">
+              <div className="flex flex-col md:flex-row justify-between  h-auto md:h-[311px]  my-[24px] space-y-4 md:space-y-0">
+                <div className="relative flexRowCenter w-full md:max-w-[384px] min-h-[311px] rounded-[24px] bg-slate/300">
                   {imgUrlVal ? (
                     <Image
                       src={imgUrlVal}
@@ -127,7 +126,7 @@ export default function Detail() {
                     />
                   </div>
                 </div>
-                <div className="relative min-w-[588px] rounded-[24px] overflow-hidden">
+                <div className="relative w-full md:max-w-[588px] min-h-[311px] rounded-[24px] overflow-hidden">
                   <Image
                     className="rounded-[24px]"
                     src="/assets/memo.png"
@@ -152,17 +151,17 @@ export default function Detail() {
               </div>
             </section>
 
-            <section className="flex justify-end items-center w-full">
+            <section className="flex justify-center md:justify-end items-center w-full px-[16px]">
               <button
                 onClick={() => onClickUpdate()}
-                className="flexRowCenter w-[168px] h-[56px] mr-[16px] bg-slate/200 border-2 border-slate/900 rounded-[24px] text-[16px] max-sm:w-[56px]"
+                className="flexRowCenter min-w-[168px] h-[56px]  bg-slate/200 border-2 border-slate/900 rounded-[24px] text-[16px] sm:mr-[16px]"
                 style={{ boxShadow: "0 6px 4px rgba(15, 23, 42, 1)" }}
               >
                 수정 완료
               </button>
               <button
                 onClick={() => onClickDelete()}
-                className="flexRowCenter w-[168px] h-[56px] bg-rose/500 border-2 border-slate/900 text-white rounded-[24px] text-[16px] max-sm:w-[56px]"
+                className="flexRowCenter min-w-[168px] h-[56px] bg-rose/500 border-2 border-slate/900 text-white rounded-[24px] text-[16px]"
                 style={{ boxShadow: "0 6px 4px rgba(15, 23, 42, 1)" }}
               >
                 삭제하기

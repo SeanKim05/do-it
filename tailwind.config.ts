@@ -23,6 +23,10 @@ const config: Config = {
       "slate/200": "#E2E8F0",
       "slate/100": "#F1F5F9",
     },
+    screens: {
+      sm: "375px",
+      md: "744px",
+    },
 
     fontFamily: {
       nanumB: ["NanumBold", "sans-serif"],
