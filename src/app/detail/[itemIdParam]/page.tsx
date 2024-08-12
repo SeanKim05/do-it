@@ -9,7 +9,7 @@ import {
   usePostImgMutation,
   useUpdateToDoItem,
 } from "@/api/query";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function Detail() {
   const { itemIdParam } = useParams();
@@ -18,6 +18,7 @@ export default function Detail() {
   const [memoVal, setMemoVal] = useState("");
   const [imgUrlVal, setImgUrlVal] = useState("");
   const [isCompletedVal, setIsCompletedVal] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (toDoItem) {
@@ -26,6 +27,17 @@ export default function Detail() {
       setImgUrlVal(toDoItem.imageUrl);
     }
   }, [toDoItem]);
+
+  useEffect(() => {
+    autoResize();
+  }, [memoVal]);
+
+  const autoResize = () => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  };
 
   const previewImg = usePostImgMutation();
   const updateItem = useUpdateToDoItem();
@@ -136,12 +148,13 @@ export default function Detail() {
                   />
                   <div className="absolute inset-0 flex justify-center items-center">
                     <textarea
+                      ref={textareaRef}
                       className="text-center w-full bg-[transparent] outline-none resize-none"
                       style={{
                         whiteSpace: "pre-wrap",
                         overflowWrap: "break-word",
                       }}
-                      defaultValue={toDoItem?.memo}
+                      value={memoVal}
                       onChange={(e) => {
                         setMemoVal(e.target.value);
                       }}
