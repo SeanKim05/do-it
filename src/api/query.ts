@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
+  deleteToDoItem,
   getToDoItem,
   getToDoList,
   postImage,
@@ -46,6 +47,12 @@ export const useUpdateToDoItem = () => {
         queryKey: ["getToDoItem"],
       });
     },
+  });
+};
+
+export const useDeleteToDoItemMutation = () => {
+  return useMutation({
+    mutationFn: deleteToDoItem,
   });
 };
 

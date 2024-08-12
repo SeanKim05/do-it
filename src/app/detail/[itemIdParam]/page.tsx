@@ -1,9 +1,10 @@
 "use client";
 
 import Header from "@/components/Header";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import {
+  useDeleteToDoItemMutation,
   useGetToDoItem,
   usePostImgMutation,
   useUpdateToDoItem,
@@ -12,6 +13,7 @@ import { useState, useEffect } from "react";
 
 export default function Detail() {
   const { itemIdParam } = useParams();
+  const router = useRouter();
   const { data: toDoItem, isFetching } = useGetToDoItem(+itemIdParam);
   const [memoVal, setMemoVal] = useState("");
   const [imgUrlVal, setImgUrlVal] = useState("");
@@ -27,6 +29,7 @@ export default function Detail() {
 
   const previewImg = usePostImgMutation();
   const updateItem = useUpdateToDoItem();
+  const deleteItem = useDeleteToDoItemMutation();
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -46,8 +49,6 @@ export default function Detail() {
     }
   };
 
-  console.log(memoVal);
-
   const onClickUpdate = () => {
     const req = {
       memo: memoVal || "",
@@ -56,6 +57,14 @@ export default function Detail() {
       isCompleted: isCompletedVal,
     };
     updateItem.mutate({ itemId: +itemIdParam, req });
+  };
+
+  const onClickDelete = () => {
+    deleteItem.mutate(+itemIdParam, {
+      onSuccess: () => {
+        router.push("/");
+      },
+    });
   };
 
   return (
@@ -152,6 +161,7 @@ export default function Detail() {
                 수정 완료
               </button>
               <button
+                onClick={() => onClickDelete()}
                 className="flexRowCenter w-[168px] h-[56px] bg-rose/500 border-2 border-slate/900 text-white rounded-[24px] text-[16px] max-sm:w-[56px]"
                 style={{ boxShadow: "0 6px 4px rgba(15, 23, 42, 1)" }}
               >
