@@ -1,5 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getToDoItem, getToDoList, postToDoItem, updateToDoItem } from "./api";
+import {
+  getToDoItem,
+  getToDoList,
+  postImage,
+  postToDoItem,
+  updateToDoItem,
+} from "./api";
 
 export const usePostToDoMutation = () => {
   const queryClient = useQueryClient();
@@ -37,8 +43,14 @@ export const useUpdateToDoItem = () => {
     mutationFn: updateToDoItem,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["getToDoList", "getToDoItem"],
+        queryKey: ["getToDoItem"],
       });
     },
+  });
+};
+
+export const usePostImgMutation = () => {
+  return useMutation({
+    mutationFn: postImage,
   });
 };

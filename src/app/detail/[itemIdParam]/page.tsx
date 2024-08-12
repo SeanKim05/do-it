@@ -3,7 +3,11 @@
 import Header from "@/components/Header";
 import { useParams } from "next/navigation";
 import Image from "next/image";
-import { useGetToDoItem, useUpdateToDoItem } from "@/api/query";
+import {
+  useGetToDoItem,
+  usePostImgMutation,
+  useUpdateToDoItem,
+} from "@/api/query";
 import { useState, useEffect } from "react";
 
 export default function Detail() {
@@ -17,19 +21,12 @@ export default function Detail() {
     if (toDoItem) {
       setIsCompletedVal(toDoItem.isCompleted);
       setMemoVal(toDoItem.memo);
+      setImgUrlVal(toDoItem.imageUrl);
     }
   }, [toDoItem]);
 
+  const previewImg = usePostImgMutation();
   const updateItem = useUpdateToDoItem();
-  const onClickUpdate = () => {
-    const req = {
-      memo: memoVal,
-      name: toDoItem?.name,
-      imageUrl: imgUrlVal,
-      isCompleted: isCompletedVal,
-    };
-    updateItem.mutate({ itemId: +itemIdParam, req });
-  };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -39,9 +36,26 @@ export default function Detail() {
         return;
       }
 
-      const imageUrl = URL.createObjectURL(file);
-      setImgUrlVal(imageUrl);
+      const previewImgUrl = URL.createObjectURL(file);
+      setImgUrlVal(previewImgUrl);
+
+      const formData = new FormData();
+      formData.append("image", file);
+
+      previewImg.mutate(formData);
     }
+  };
+
+  console.log(memoVal);
+
+  const onClickUpdate = () => {
+    const req = {
+      memo: memoVal || "",
+      name: toDoItem?.name,
+      imageUrl: imgUrlVal || "",
+      isCompleted: isCompletedVal,
+    };
+    updateItem.mutate({ itemId: +itemIdParam, req });
   };
 
   return (
@@ -131,7 +145,7 @@ export default function Detail() {
 
             <section className="flex justify-end items-center w-full">
               <button
-                // onClick={onClickUpdate}
+                onClick={() => onClickUpdate()}
                 className="flexRowCenter w-[168px] h-[56px] mr-[16px] bg-slate/200 border-2 border-slate/900 rounded-[24px] text-[16px] max-sm:w-[56px]"
                 style={{ boxShadow: "0 6px 4px rgba(15, 23, 42, 1)" }}
               >

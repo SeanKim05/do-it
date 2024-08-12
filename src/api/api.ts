@@ -43,8 +43,12 @@ export const deleteToDoItem = async (itemId: number) => {
   return res;
 };
 
-export const postImage = async (req: { url: string }) => {
-  const res = await api.post("images/upload", req);
+export const postImage = async (req: FormData) => {
+  const res = await api.post(`/images/upload`, req, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
   return res;
 };
