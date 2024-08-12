@@ -52,7 +52,7 @@ export default function ToDoList() {
                 height={32}
                 alt="check"
               />
-              <span className="ml-[16px]">{item.name}</span>
+              <span className="ml-[16px] line-through">{item.name}</span>
             </div>
           </Link>
         ))}
