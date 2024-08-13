@@ -10,6 +10,7 @@ const config: Config = {
     colors: {
       white: "#ffffff",
       "violet/600": "#7C3AED",
+      "violet/200": "#DDD6FE",
       "violet/100": "#EDE9FE",
       "rose/500": "#F43F5E",
       "lime/300": "#BEF264",

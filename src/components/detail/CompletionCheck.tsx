@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import React from "react";
-
+import Image from "next/image";
 interface CompletionToggleProps {
   isCompletedVal: boolean;
   toDoItemName?: string;
@@ -17,7 +16,9 @@ export default function CompletionCheck({
   return (
     <div
       onClick={() => setIsCompletedVal(!isCompletedVal)}
-      className="flexRowCenter w-full h-[64px] rounded-[24px] border-[2px] border-slate/900 cursor-pointer"
+      className={`flexRowCenter w-full h-[64px] rounded-[24px] border-[2px] border-slate/900 cursor-pointer font-bold text-[20px] ${
+        isCompletedVal ? "bg-violet/200" : ""
+      }`}
     >
       <Image
         src={`/assets/${isCompletedVal ? "checkbox" : "emptybox"}.png`}
@@ -25,9 +26,7 @@ export default function CompletionCheck({
         width={32}
         alt="checkbox status"
       />
-      <span className={`ml-[16px] ${isCompletedVal ? "line-through" : ""}`}>
-        {toDoItemName}
-      </span>
+      <span className={`ml-[16px] underline`}>{toDoItemName}</span>
     </div>
   );
 }

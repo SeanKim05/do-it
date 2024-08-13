@@ -26,7 +26,7 @@ export default function ImageAndMemoSection({
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-between  h-auto md:h-[311px] my-[24px] space-y-4 md:space-y-0">
+    <div className="flex flex-col md:flex-row justify-between  h-auto md:h-[311px] my-[24px] space-y-4 md:space-y-0 space-x-0 md:space-x-[24px]">
       <div className="relative flexRowCenter w-full md:max-w-[384px] min-h-[311px] rounded-[24px] bg-slate/300">
         {imgUrlVal ? (
           <Image
@@ -52,7 +52,7 @@ export default function ImageAndMemoSection({
         <div className="absolute bottom-[16px] right-[16px] flexRowCenter w-[64px] h-[64px] rounded-full bg-slate/200 pointer-events-none">
           <Image
             style={{ width: "auto" }}
-            src="/assets/plus.png"
+            src="/assets/pluslg.png"
             height={24}
             width={24}
             alt="img plus"
@@ -69,10 +69,13 @@ export default function ImageAndMemoSection({
           alt="img plus"
           priority
         />
-        <div className="absolute inset-0 flex justify-center items-center px-[16px]">
+        <div className="relative flexRowCenter mt-[24px] text-amber/800 z-10 text-[16px] font-nanumB font-bold">
+          Memo
+        </div>
+        <div className="absolute inset-0 flex justify-center items-center px-[16px] mt-[16px]">
           <textarea
             ref={textareaRef}
-            className="text-center w-full bg-[transparent] outline-none resize-none"
+            className="text-center w-full bg-[transparent] outline-none resize-none font-normal max-h-[220px]"
             style={{
               whiteSpace: "pre-wrap",
               overflowWrap: "break-word",
