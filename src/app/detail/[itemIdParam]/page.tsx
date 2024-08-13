@@ -30,13 +30,23 @@ export default function Detail() {
     }
   }, [toDoItem]);
 
+  // Monitor changes in memoVal and imgUrlVal
   useEffect(() => {
     if (toDoItem) {
-      setIsValChanged(
-        toDoItem.memo !== memoVal || toDoItem.imageUrl !== imgUrlVal
-      );
+      const hasChanges =
+        memoVal !== (toDoItem.memo || "") ||
+        imgUrlVal !== (toDoItem.imageUrl || "");
+      setIsValChanged(hasChanges);
+      console.log(
+        "Memo Value:",
+        memoVal,
+        "Image URL Value:",
+        imgUrlVal,
+        "Has Changes:",
+        hasChanges
+      ); // Debugging logs
     }
-  }, [imgUrlVal, memoVal, toDoItem]);
+  }, [memoVal, imgUrlVal, toDoItem]);
 
   // tanstack mutation
   const previewImg = usePostImgMutation();

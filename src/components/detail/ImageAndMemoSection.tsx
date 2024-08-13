@@ -27,7 +27,7 @@ export default function ImageAndMemoSection({
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-between  h-auto md:h-[311px] my-[24px] space-y-4 md:space-y-0 space-x-0 md:space-x-[24px]">
+    <div className="flex flex-col md:flex-row justify-between h-auto md:h-[311px] my-[24px] space-y-4 md:space-y-0 space-x-0 md:space-x-[24px]">
       {/* 이미지 영역 */}
       <div className="relative flexRowCenter w-full md:max-w-[384px] min-h-[311px] rounded-[24px] bg-slate/300">
         {imgUrlVal ? (

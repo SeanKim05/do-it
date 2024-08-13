@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+
 interface ButtonSectionProps {
   onClickUpdate: () => void;
   onClickDelete: () => void;
@@ -9,16 +10,16 @@ interface ButtonSectionProps {
 }
 
 export default function ButtonSection({
-  onClickUpdate, // 항목 수정
-  onClickDelete, // 항목 삭제
-  isValChanged, // 항목 값이 변했는지 값
+  onClickUpdate,
+  onClickDelete,
+  isValChanged,
 }: ButtonSectionProps) {
   return (
     <section className="flex justify-center md:justify-end items-center w-full px-[16px] font-bold">
       <button
         onClick={onClickUpdate}
-        className={`flexRowCenter min-w-[168px] h-[56px]  bg-slate/200 border-2 border-slate/900 rounded-[24px] text-[16px] sm:mr-[16px] ${
-          isValChanged && "bg-lime/300"
+        className={`flexRowCenter min-w-[168px] h-[56px] border-2 border-slate/900 rounded-[24px] text-[16px] sm:mr-[16px] ${
+          isValChanged ? "bg-lime/300" : "bg-slate/200"
         }`}
         style={{ boxShadow: "0 6px 4px rgba(15, 23, 42, 1)" }}
       >

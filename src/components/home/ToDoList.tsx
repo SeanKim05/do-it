@@ -92,8 +92,8 @@ export default function ToDoList() {
               alt="check"
               onClick={() => handleToggleCompleted(item)}
             />
-            <Link href={`/detail/${item.id}`}>
-              <span className="ml-[16px] line-through">{item.name}</span>
+            <Link className="w-full" href={`/detail/${item.id}`}>
+              <span className="w-full ml-[16px] line-through">{item.name}</span>
             </Link>
           </div>
         ))}
