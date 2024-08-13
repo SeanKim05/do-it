@@ -13,8 +13,14 @@ export const postToDoItem = async (req: { name: string }) => {
   return res;
 };
 
-export const getToDoList = async () => {
-  const res = await api.get("/items?page=1&pageSize=10");
+export const getToDoList = async ({
+  page,
+  size,
+}: {
+  page: number;
+  size: number;
+}) => {
+  const res = await api.get(`/items?page=${page}&pageSize=${size}`);
 
   return res?.data;
 };
@@ -31,6 +37,18 @@ export const updateToDoItem = async ({
 }: {
   itemId: number;
   req: IupdateToDo;
+}) => {
+  const res = await api.patch(`/items/${itemId}`, req);
+
+  return res;
+};
+
+export const updateToggleToDoItem = async ({
+  itemId,
+  req,
+}: {
+  itemId: number;
+  req: { isCompleted: boolean };
 }) => {
   const res = await api.patch(`/items/${itemId}`, req);
 

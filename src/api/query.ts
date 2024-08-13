@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import {
   deleteToDoItem,
   getToDoItem,
@@ -6,7 +11,16 @@ import {
   postImage,
   postToDoItem,
   updateToDoItem,
+  updateToggleToDoItem,
 } from "./api";
+
+interface ITodoItem {
+  id: number;
+  name: string;
+  isCompleted: boolean;
+}
+
+type TodoListResponse = ITodoItem[];
 
 export const usePostToDoMutation = () => {
   const queryClient = useQueryClient();
@@ -20,11 +34,13 @@ export const usePostToDoMutation = () => {
 };
 
 export const useGetToDoList = () => {
-  return useQuery({
+  return useInfiniteQuery<TodoListResponse, Error>({
     queryKey: ["getToDoList"],
-    queryFn: () => {
-      return getToDoList();
+    queryFn: ({ pageParam = 1 }) => getToDoList({ page: pageParam, size: 10 }),
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage.length === 10 ? pages.length + 1 : undefined;
     },
+    initialPageParam: 1,
   });
 };
 
@@ -44,7 +60,20 @@ export const useUpdateToDoItem = () => {
     mutationFn: updateToDoItem,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["getToDoItem"],
+        queryKey: ["getToDoList"],
+      });
+    },
+  });
+};
+
+export const useUpdateToggleToDoItem = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateToggleToDoItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["getToDoList"],
       });
     },
   });
