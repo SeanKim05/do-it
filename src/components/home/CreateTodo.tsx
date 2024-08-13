@@ -3,13 +3,23 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { usePostToDoMutation } from "@/api/query";
 
-export default function SearchBar() {
+export default function CreateTodo() {
   const [inpuVal, setInputVale] = useState("");
 
   const { mutate } = usePostToDoMutation();
+
+  //클릭시 할일 생성
   const toDoClickHandler = () => {
     const req = { name: inpuVal };
     mutate(req);
+  };
+
+  //  엔터 입력시 할일 생성
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      const req = { name: inpuVal };
+      mutate(req);
+    }
   };
 
   return (
@@ -20,6 +30,7 @@ export default function SearchBar() {
         onChange={(e) => {
           setInputVale(e.target.value);
         }}
+        onKeyDown={handleKeyPress}
       />
       <button
         className="flexRowCenter w-[168px] h-[56px] bg-slate/200 border-2 border-slate/900 rounded-[24px] text-[16px] max-sm:w-[56px]"

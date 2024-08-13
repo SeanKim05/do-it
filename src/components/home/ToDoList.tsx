@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import { useGetToDoList, useUpdateToggleToDoItem } from "@/api/query"; // Make sure you import useUpdateToDoItem
+import { useGetToDoList, useUpdateToggleToDoItem } from "@/api/query"; // Make sure you import useUpdateToDoItemMutation
 import Link from "next/link";
 
 export default function ToDoList() {
@@ -9,9 +9,11 @@ export default function ToDoList() {
     useGetToDoList();
   const updateToggleToDoItem = useUpdateToggleToDoItem();
 
+  // 무한스크롤 참조 ref
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // 무한스크롤 로직 ref 가 보일 시 추가 로드
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && hasNextPage && !isFetching) {
@@ -34,8 +36,10 @@ export default function ToDoList() {
     };
   }, [hasNextPage, isFetching, fetchNextPage]);
 
+  //이전 페이지와 추가 페이지 합치기
   const todoList = data ? data.pages.flat() : [];
 
+  //할일 항목 체크박스 클릭 시 상태 전환
   const handleToggleCompleted = (item: any) => {
     updateToggleToDoItem.mutate({
       itemId: item.id,
@@ -43,6 +47,7 @@ export default function ToDoList() {
     });
   };
 
+  //할일 , 한일 나누기
   const completed = todoList.filter((item) => item.isCompleted);
   const notCompleted = todoList.filter((item) => !item.isCompleted);
 
@@ -64,8 +69,8 @@ export default function ToDoList() {
               alt="check"
               onClick={() => handleToggleCompleted(item)}
             />
-            <Link href={`/detail/${item.id}`}>
-              <span className="ml-[16px]">{item.name}</span>
+            <Link className="w-full" href={`/detail/${item.id}`}>
+              <span className="ml-[16px] w-full">{item.name}</span>
             </Link>
           </div>
         ))}

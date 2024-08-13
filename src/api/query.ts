@@ -53,7 +53,7 @@ export const useGetToDoItem = (itemId: number) => {
   });
 };
 
-export const useUpdateToDoItem = () => {
+export const useUpdateToDoItemMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({

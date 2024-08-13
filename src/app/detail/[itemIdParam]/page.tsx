@@ -6,7 +6,7 @@ import {
   useDeleteToDoItemMutation,
   useGetToDoItem,
   usePostImgMutation,
-  useUpdateToDoItem,
+  useUpdateToDoItemMutation,
 } from "@/api/query";
 import { useState, useEffect } from "react";
 import ButtonSection from "@/components/detail/Buttons";
@@ -20,19 +20,30 @@ export default function Detail() {
   const [memoVal, setMemoVal] = useState("");
   const [imgUrlVal, setImgUrlVal] = useState("");
   const [isCompletedVal, setIsCompletedVal] = useState(false);
+  const [isValChanged, setIsValChanged] = useState(false);
 
   useEffect(() => {
     if (toDoItem) {
-      setIsCompletedVal(toDoItem.isCompleted);
-      setMemoVal(toDoItem.memo);
-      setImgUrlVal(toDoItem.imageUrl);
+      setIsCompletedVal(toDoItem.isCompleted || false);
+      setMemoVal(toDoItem.memo || "");
+      setImgUrlVal(toDoItem.imageUrl || "");
     }
   }, [toDoItem]);
 
+  useEffect(() => {
+    if (toDoItem) {
+      setIsValChanged(
+        toDoItem.memo !== memoVal || toDoItem.imageUrl !== imgUrlVal
+      );
+    }
+  }, [imgUrlVal, memoVal, toDoItem]);
+
+  // tanstack mutation
   const previewImg = usePostImgMutation();
-  const updateItem = useUpdateToDoItem();
+  const updateItem = useUpdateToDoItemMutation();
   const deleteItem = useDeleteToDoItemMutation();
 
+  // 이미지 업로드
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -51,16 +62,25 @@ export default function Detail() {
     }
   };
 
+  //수정
   const onClickUpdate = () => {
     const req = {
       memo: memoVal || "",
-      name: toDoItem?.name,
-      imageUrl: imgUrlVal ? imgUrlVal : "",
+      name: toDoItem?.name || "",
+      imageUrl: imgUrlVal || "",
       isCompleted: isCompletedVal,
     };
-    updateItem.mutate({ itemId: +itemIdParam, req });
+    updateItem.mutate(
+      { itemId: +itemIdParam, req },
+      {
+        onSuccess: () => {
+          router.push("/");
+        },
+      }
+    );
   };
 
+  //삭제
   const onClickDelete = () => {
     deleteItem.mutate(+itemIdParam, {
       onSuccess: () => {
@@ -78,7 +98,7 @@ export default function Detail() {
             <section>
               <CompletionCheck
                 isCompletedVal={isCompletedVal}
-                toDoItemName={toDoItem?.name}
+                toDoItemName={toDoItem?.name || ""}
                 setIsCompletedVal={setIsCompletedVal}
               />
               <ImageAndMemoSection
@@ -92,6 +112,7 @@ export default function Detail() {
             <ButtonSection
               onClickUpdate={onClickUpdate}
               onClickDelete={onClickDelete}
+              isValChanged={isValChanged}
             />
           </div>
         )}
