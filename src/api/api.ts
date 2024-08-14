@@ -1,5 +1,11 @@
 import api from ".";
-import { IupdateToDo } from "../../.next/types/interface";
+
+interface IupdateToDo {
+  name: string;
+  memo: string;
+  imageUrl: string;
+  isCompleted: boolean;
+}
 
 export const postToDoItem = async (req: { name: string }) => {
   const res = await api.post("/items", req);

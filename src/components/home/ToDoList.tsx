@@ -3,7 +3,21 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { useGetToDoList, useUpdateToggleToDoItem } from "@/api/query";
 import Link from "next/link";
-import { ITodoItem, ToDoSectionProps } from "../../../.next/types/interface";
+
+interface ITodoItem {
+  id: number;
+  name: string;
+  isCompleted: boolean;
+}
+
+interface ToDoSectionProps {
+  title: string;
+  items: ITodoItem[];
+  emptyImage: string;
+  emptyText: string;
+  handleToggleCompleted: (item: ITodoItem) => void;
+  completed: boolean;
+}
 
 const ToDoSection: React.FC<ToDoSectionProps> = ({
   title,
