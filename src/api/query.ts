@@ -36,6 +36,7 @@ export const usePostToDoMutation = () => {
 export const useGetToDoList = () => {
   return useInfiniteQuery<TodoListResponse, Error>({
     queryKey: ["getToDoList"],
+    //@ts-ignore
     queryFn: ({ pageParam = 1 }) => getToDoList({ page: pageParam, size: 10 }),
     getNextPageParam: (lastPage, pages) => {
       return lastPage.length === 10 ? pages.length + 1 : undefined;
