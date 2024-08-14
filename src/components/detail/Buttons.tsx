@@ -2,12 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-
-interface ButtonSectionProps {
-  onClickUpdate: () => void;
-  onClickDelete: () => void;
-  isValChanged: boolean;
-}
+import { ButtonSectionProps } from "../../../.next/types/interface";
 
 export default function ButtonSection({
   onClickUpdate,

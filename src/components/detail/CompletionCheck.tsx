@@ -2,11 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-interface CompletionToggleProps {
-  isCompletedVal: boolean;
-  toDoItemName?: string;
-  setIsCompletedVal: (val: boolean) => void;
-}
+import { CompletionToggleProps } from "../../../.next/types/interface";
 
 export default function CompletionCheck({
   isCompletedVal,
