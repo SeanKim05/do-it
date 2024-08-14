@@ -17,7 +17,7 @@ export const getToDoList = async ({
   page,
   size,
 }: {
-  page: number;
+  page: number | unknown;
   size: number;
 }) => {
   const res = await api.get(`/items?page=${page}&pageSize=${size}`);
