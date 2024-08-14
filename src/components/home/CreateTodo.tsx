@@ -30,7 +30,7 @@ export default function CreateTodo() {
         onChange={(e) => {
           setInputVale(e.target.value);
         }}
-        onKeyDown={handleKeyPress}
+        onKeyDown={(e) => handleKeyPress(e)}
       />
       <button
         className="flexRowCenter w-[168px] h-[56px] bg-slate/200 border-2 border-slate/900 rounded-[24px] text-[16px] max-sm:w-[56px]"

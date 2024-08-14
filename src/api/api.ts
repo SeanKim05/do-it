@@ -1,10 +1,10 @@
 import api from ".";
 
 interface IupdateToDo {
-  name: string;
-  memo: string;
-  imageUrl: string;
-  isCompleted: boolean;
+  name?: string;
+  memo?: string;
+  imageUrl?: string;
+  isCompleted?: boolean;
 }
 
 export const postToDoItem = async (req: { name: string }) => {

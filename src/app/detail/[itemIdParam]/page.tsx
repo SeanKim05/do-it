@@ -30,7 +30,6 @@ export default function Detail() {
     }
   }, [toDoItem]);
 
-  // Monitor changes in memoVal and imgUrlVal
   useEffect(() => {
     if (toDoItem) {
       const hasChanges =
@@ -44,7 +43,7 @@ export default function Detail() {
         imgUrlVal,
         "Has Changes:",
         hasChanges
-      ); // Debugging logs
+      );
     }
   }, [memoVal, imgUrlVal, toDoItem]);
 
