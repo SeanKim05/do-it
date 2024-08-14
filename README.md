@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Do It
 
-## Getting Started
+## 코드잇 스프린트 과제
 
-First, run the development server:
+### 소개
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+할일 리스트와 상세페이지로 구성된 To Do 애플리케이션입니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. 리스트에서 할일의 상태를 변경할 수 있습니다.
+2. 상세페이지에서 메모 및 이미지를 추가할 수 있습니다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 기술 스택
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Next.js
+- TypeScript
+- Tanstack-query
 
-## Learn More
+### 기획 요구 사항
 
-To learn more about Next.js, take a look at the following resources:
+#### 공통
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Figma에 제공된 폰트와 컬러 시스템을 적용합니다.
+- 반응형 웹 디자인을 준수합니다.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+#### 할 일 목록 페이지 (`/`)
 
-## Deploy on Vercel
+**목록 조회**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- ‘로고’ 버튼 클릭 시 `/` 페이지로 이동합니다.
+- 진행 중인 할 일과 완료된 할 일을 구분하여 목록을 구성합니다.
+- 할 일 목록은 무한 스크롤을 적용합니다.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+**할 일 추가**
+
+- 상단에 위치한 입력 창에서 버튼 클릭 혹은 엔터 입력 시 추가합니다.
+
+**완료**
+
+- 진행 중인 일, 할 일 항목의 왼쪽 버튼을 클릭하면 체크 표시가 변경되어 상태가 전환됩니다.
+  - 예: 진행 중인 일 -> 할 일, 할 일 -> 진행 중인 일
+
+#### 할 일 상세 페이지 (`/items/{itemId}`)
+
+**할 일 수정**
+
+- 할 일 항목 및 메모를 수정할 수 있습니다.
+- 최대 1개의 이미지를 첨부할 수 있으며, 이미지의 크기는 5MB 이하이고 영문명만 허용됩니다.
+- 수정 완료 버튼 클릭 시 수정 사항이 저장되고, 리스트 페이지로 이동합니다.
+
+**할 일 삭제**
+
+- 삭제하기 버튼 클릭 시 해당 아이템이 삭제되며, 리스트 페이지로 이동합니다.

@@ -17,6 +17,7 @@ export default function Detail() {
   const { itemIdParam } = useParams();
   const router = useRouter();
   const { data: toDoItem, isFetching } = useGetToDoItem(+itemIdParam);
+  const [nameVal, setNameVal] = useState("");
   const [memoVal, setMemoVal] = useState("");
   const [imgUrlVal, setImgUrlVal] = useState("");
   const [isCompletedVal, setIsCompletedVal] = useState(false);
@@ -24,28 +25,23 @@ export default function Detail() {
 
   useEffect(() => {
     if (toDoItem) {
-      setIsCompletedVal(toDoItem.isCompleted || false);
       setMemoVal(toDoItem.memo || "");
       setImgUrlVal(toDoItem.imageUrl || "");
+      setNameVal(toDoItem.name || "");
     }
   }, [toDoItem]);
 
+  //항목변화 감지
   useEffect(() => {
     if (toDoItem) {
       const hasChanges =
+        // isCompletedVal !== (toDoItem.isCompleted || "") ||
+        nameVal !== (toDoItem.name || "") ||
         memoVal !== (toDoItem.memo || "") ||
         imgUrlVal !== (toDoItem.imageUrl || "");
       setIsValChanged(hasChanges);
-      console.log(
-        "Memo Value:",
-        memoVal,
-        "Image URL Value:",
-        imgUrlVal,
-        "Has Changes:",
-        hasChanges
-      );
     }
-  }, [memoVal, imgUrlVal, toDoItem]);
+  }, [memoVal, imgUrlVal, toDoItem, isCompletedVal, nameVal]);
 
   // tanstack mutation
   const previewImg = usePostImgMutation();
@@ -75,10 +71,11 @@ export default function Detail() {
   const onClickUpdate = () => {
     const req = {
       memo: memoVal || "",
-      name: toDoItem?.name || "",
+      name: nameVal || "",
       imageUrl: imgUrlVal || "",
       isCompleted: isCompletedVal,
     };
+
     updateItem.mutate(
       { itemId: +itemIdParam, req },
       {
@@ -108,6 +105,7 @@ export default function Detail() {
               <CompletionCheck
                 isCompletedVal={isCompletedVal}
                 toDoItemName={toDoItem?.name || ""}
+                setNameVal={setNameVal}
                 setIsCompletedVal={setIsCompletedVal}
               />
               <ImageAndMemoSection
